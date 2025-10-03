@@ -1,0 +1,77 @@
+{
+  "database_name": "customer_order",
+  "table_name": "orders",
+  "columns": [
+    {
+      "column_name": "order_id",
+      "data_type": "string",
+      "required": false
+    },
+    {
+      "column_name": "order_time",
+      "data_type": "timestamp",
+      "required": false
+    },
+    {
+      "column_name": "customer_name",
+      "data_type": "string",
+      "required": false
+    },
+    {
+      "column_name": "address",
+      "data_type": "struct",
+      "required": false,
+      "struct_def": [
+        {
+          "column_name": "address_line",
+          "data_type": "string",
+          "required": false
+        },
+        {
+          "column_name": "city",
+          "data_type": "string",
+          "required": false
+        },
+        {
+          "column_name": "state",
+          "data_type": "string",
+          "required": false
+        },
+        {
+          "column_name": "zip",
+          "data_type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "column_name": "order_items",
+      "data_type": "array",
+      "required": true,
+      "array_def": {
+          "data_type": "struct",
+          "required": true,
+          "struct_def": [
+            {
+              "column_name": "item_id",
+              "data_type": "string",
+              "required": true
+            },
+            {
+              "column_name": "item_count",
+              "data_type": "int",
+              "required": true
+            },
+            {
+              "column_name": "price",
+              "data_type": "float",
+              "required": true
+            }
+          ]
+      }
+    }
+  ],
+  "partitions": [
+    {"column": "order_time","transform": "month"}
+  ]
+}

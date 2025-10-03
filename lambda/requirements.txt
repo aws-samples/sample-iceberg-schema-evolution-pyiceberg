@@ -1,0 +1,7 @@
+requests
+PyYAML==6.0.2
+boto3==1.37.3
+s3fs==2025.3.2
+pyarrow
+jsonschema
+pyiceberg[s3fs,glue,sql-sqlite,pyiceberg-core]

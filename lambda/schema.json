@@ -1,0 +1,162 @@
+{
+  "$defs": {
+    "transform_enum": {
+      "type": "string",
+      "enum": [
+        "identity",
+        "hour",
+        "day",
+        "year",
+        "month"
+      ]
+    },
+    "partition_def": {
+      "type": "object",
+      "properties": {
+        "column": {"type": "string"},
+        "name": {"type": "string"},
+        "transform": {"$ref": "#/$defs/transform_enum"}
+      },
+      "required": ["column"]
+    },
+    "data_type_enum": {
+      "type": "string",
+      "enum": [
+        "string",
+        "number",
+        "struct",
+        "array",
+        "map",
+        "timestamp",
+        "int",
+        "date"
+      ]
+    },
+    "map_def": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "$ref": "#/$defs/element_field_def"
+        },
+        "value": {
+          "$ref": "#/$defs/element_field_def"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "array_def": {
+      "$ref": "#/$defs/element_field_def"
+    },
+    "field_def": {
+      "type": "object",
+      "properties": {
+        "column_name": {
+          "type": "string"
+        },
+        "data_type": {
+          "$ref": "#/$defs/data_type_enum"
+        },
+        "required": {
+          "type": "boolean",
+          "default": false
+        },
+        "struct_def": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/field_def"
+          }
+        },
+        "map_def": {
+          "$ref": "#/$defs/map_def"
+        },
+        "array_def": {
+          "$ref": "#/$defs/array_def"
+        },
+        "partition": {
+          "name": {
+            "type": "string"
+          },
+          "transform": {
+            "$ref": "#/$defs/transform_enum"
+          }
+        }
+      },
+      "required": [
+        "column_name",
+        "data_type"
+      ],
+      "additionalProperties": false
+    },
+    "element_field_def": {
+      "type": "object",
+      "properties": {
+        "column_name": {
+          "type": "string"
+        },
+        "data_type": {
+          "$ref": "#/$defs/data_type_enum"
+        },
+        "required": {
+          "type": "boolean",
+          "default": false
+        },
+        "struct_def": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/field_def"
+          }
+        },
+        "map_def": {
+          "$ref": "#/$defs/map_def"
+        },
+        "array_def": {
+          "$ref": "#/$defs/array_def"
+        }
+      },
+      "required": [
+        "data_type"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "database_name": {
+      "type": "string"
+    },
+    "table_name": {
+      "type": "string"
+    },
+    "columns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/field_def"
+      },
+      "minItems": 1
+    },
+    "partitions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/partition_def"
+      }
+    },
+    "properties": {
+      "additionalProperties": {
+        "type": [
+          "string",
+          "boolean"
+        ]
+      }
+    }
+  },
+  "required": [
+    "database_name",
+    "table_name",
+    "columns"
+  ],
+  "additionalProperties": false
+}
