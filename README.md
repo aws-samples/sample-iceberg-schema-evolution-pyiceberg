@@ -1,6 +1,6 @@
 # Iceberg Schema Evolution
 
-A serverless AWS solution for managing Apache Iceberg table schema evolution using AWS Lambda, deployed with AWS CDK.
+A serverless AWS solution for managing Apache Iceberg table schema evolution using AWS Lambda and PyIceberg, deployed with AWS CDK.
 
 ## Overview
 
