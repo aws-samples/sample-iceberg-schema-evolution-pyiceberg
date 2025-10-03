@@ -41,6 +41,7 @@ cd iceberg-schema-evolution
    2. Install dependencies
    3. Deploy the infrastructure using CDK:
 ```bash
+chmod +x install_env.sh
 ./install_env.sh
 ```
 
