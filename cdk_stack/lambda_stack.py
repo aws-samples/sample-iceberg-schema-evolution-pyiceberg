@@ -15,7 +15,7 @@ class IcebergSchemaEvolutionStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         account_id = Stack.of(self).account
-        resource_prefix = "iceberg-schema-evolution-rel"
+        resource_prefix = "iceberg-schema-evolution"
         # Create bucket with account number in the name
         bucket = s3.Bucket(
             self,
